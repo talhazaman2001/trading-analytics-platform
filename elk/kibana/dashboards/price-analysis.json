@@ -1,0 +1,106 @@
+{
+    "version": "7.10.0",
+    "objects": [
+        {
+            "id": "price-analysis-dashboard",
+            "type": "dashboard",
+            "attributes": {
+                "title": "Price Analysis Dashboard",
+                "hits": 0,
+                "description": "Detailed analysis of trading prices and movements",
+                "panelsJSON": [
+                    {
+                        "id": "price-heatmap",
+                        "type": "visualization",
+                        "panelIndex": "1",
+                        "gridData": {
+                            "x": 0,
+                            "y": 0,
+                            "w": 24,
+                            "h": 8,
+                            "i": "1"
+                        },
+                        "version": "7.10.0",
+                        "attributes": {
+                            "title": "Price Movement Heatmap",
+                            "type": "heatmap",
+                            "params": {
+                                "addTooltip": true,
+                                "addLegend": true,
+                                "enableHover": false,
+                                "legendPosition": "right",
+                                "times": [],
+                                "colorsNumber": 4,
+                                "colorSchema": "Blues",
+                                "setColorRange": false,
+                                "colorsRange": [],
+                                "invertColors": false,
+                                "percentageMode": false,
+                                "valueAxes": [
+                                    {
+                                        "show": false,
+                                        "id": "ValueAxis-1",
+                                        "type": "value",
+                                        "scale": {
+                                            "type": "linear",
+                                            "defaultYExtents": false
+                                        },
+                                        "labels": {
+                                            "show": false,
+                                            "rotate": 0,
+                                            "overwriteColor": false
+                                        }
+                                    }
+                                ]
+                            },
+                            "aggs": [
+                                {
+                                    "id": "1",
+                                    "enabled": true,
+                                    "type": "avg",
+                                    "schema": "metric",
+                                    "params": {
+                                        "field": "price"
+                                    }
+                                },
+                                {
+                                    "id": "2",
+                                    "enabled": true,
+                                    "type": "terms",
+                                    "schema": "segment",
+                                    "params": {
+                                        "field": "symbol",
+                                        "size": 10,
+                                        "order": "desc",
+                                        "orderBy": "1"
+                                    }
+                                },
+                                {
+                                    "id": "3",
+                                    "enabled": true,
+                                    "type": "date_histogram",
+                                    "schema": "group",
+                                    "params": {
+                                        "field": "@timestamp",
+                                        "interval": "auto",
+                                        "min_doc_count": 1
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "timeRestore": false,
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": {
+                        "query": {
+                            "query": "",
+                            "language": "kuery"
+                        },
+                        "filter": []
+                    }
+                }
+            }
+        }
+    ]
+}

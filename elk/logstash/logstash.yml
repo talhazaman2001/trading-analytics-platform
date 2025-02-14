@@ -1,0 +1,39 @@
+# Node Settings
+node.name: trading-analytics-logstash
+node.roles: ["logstash"]
+
+# Pipeline Settings
+pipeline.workers: 2               # Number of worker threads
+pipeline.batch.size: 125         # Process events in batches of 125
+pipeline.batch.delay: 50         # Wait up to 50ms to fill a batch
+pipeline.unsafe_shutdown: false   # Ensure data integrity during shutdown
+
+# Queue Settings
+queue.type: persisted            # Persist queue to disk for reliability
+queue.max_bytes: 1gb             # Maximum size of persistent queue
+
+# Memory Settings
+pipeline.ordered: auto           # Keep events ordered when possible
+queue.page_capacity: 64mb        # Size of queue pages
+queue.max_events: 0              # Unlimited events in queue
+
+# Performance Settings
+path.data: /var/lib/logstash    # Data storage location
+path.logs: /var/log/logstash    # Log location
+log.level: info                  # Log level (debug, info, warn, error)
+
+# API Settings
+api.http.host: "127.0.0.1"      # API endpoint
+api.http.port: 9600             # API port
+
+# Monitoring Settings
+monitoring.enabled: true         
+xpack.monitoring.enabled: true  
+xpack.monitoring.elasticsearch.hosts: ["http://localhost:9200"]  # Elasticsearch monitoring endpoint
+
+# JVM Settings
+path.jvm: /etc/logstash/jvm.options  
+
+# Security Settings
+xpack.monitoring.elasticsearch.username: "${ELASTIC_USERNAME}"
+xpack.monitoring.elasticsearch.password: "${ELASTIC_PASSWORD}"

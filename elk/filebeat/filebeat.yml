@@ -1,0 +1,14 @@
+filebeat.inputs:
+- type: s3
+  enabled: true
+  queue_url: ${S3_SQS_QUEUE_URL}
+  credential_profile_name: default 
+  
+processors: 
+- add_cloud_metadata: ~
+- add_host_metadata: ~
+
+output.logstash:
+  hosts: ["localhost:5044"]
+
+logging.level: info

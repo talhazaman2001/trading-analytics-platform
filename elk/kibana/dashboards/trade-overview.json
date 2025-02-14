@@ -1,0 +1,164 @@
+{
+    "version": "7.10.0",
+    "objects": [
+        {
+            "id": "trade-overview-dashboard",
+            "type": "dashboard",
+            "attributes": {
+                "title": "Trading Overview Dashboard",
+                "hits": 0,
+                "description": "Overview of trading activity and key metrics",
+                "panelsJSON": [
+                    {
+                        "id": "total-trade-volume",
+                        "type": "visualization",
+                        "panelIndex": "1",
+                        "gridData": {
+                            "x": 0,
+                            "y": 0,
+                            "w": 12,
+                            "h": 8,
+                            "i": "1"
+                        },
+                        "version": "7.10.0",
+                        "attributes": {
+                            "title": "Total Trading Volume",
+                            "type": "metric",
+                            "params": {
+                                "metric": {
+                                    "percentageMode": false,
+                                    "useRanges": false,
+                                    "colorSchema": "Green to Red",
+                                    "metricColorMode": "None",
+                                    "colorsRange": [
+                                        {
+                                            "from": 0,
+                                            "to": 10000
+                                        }
+                                    ],
+                                    "labels": {
+                                        "show": true
+                                    }
+                                }
+                            },
+                            "aggs": [
+                                {
+                                    "id": "1",
+                                    "enabled": true,
+                                    "type": "sum",
+                                    "schema": "metric",
+                                    "params": {
+                                        "field": "volume"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "volume-by-symbol",
+                        "type": "visualization",
+                        "panelIndex": "2",
+                        "gridData": {
+                            "x": 0,
+                            "y": 8,
+                            "w": 24,
+                            "h": 8,
+                            "i": "2"
+                        },
+                        "version": "7.10.0",
+                        "attributes": {
+                            "title": "Trading Volume by Symbol",
+                            "type": "horizontal_bar",
+                            "params": {
+                                "addTooltip": true,
+                                "addLegend": true,
+                                "type": "histogram",
+                                "grid": {
+                                    "categoryLines": false
+                                }
+                            },
+                            "aggs": [
+                                {
+                                    "id": "1",
+                                    "enabled": true,
+                                    "type": "sum",
+                                    "schema": "metric",
+                                    "params": {
+                                        "field": "volume"
+                                    }
+                                },
+                                {
+                                    "id": "2",
+                                    "enabled": true,
+                                    "type": "terms",
+                                    "schema": "segment",
+                                    "params": {
+                                        "field": "symbol",
+                                        "size": 10,
+                                        "order": "desc",
+                                        "orderBy": "1"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "id": "trade-timeline",
+                        "type": "visualization",
+                        "panelIndex": "3",
+                        "gridData": {
+                            "x": 0,
+                            "y": 16,
+                            "w": 24,
+                            "h": 8,
+                            "i": "3"
+                        },
+                        "version": "7.10.0",
+                        "attributes": {
+                            "title": "Trading Timeline",
+                            "type": "line",
+                            "params": {
+                                "addTooltip": true,
+                                "addLegend": true,
+                                "type": "line",
+                                "grid": {
+                                    "categoryLines": true
+                                }
+                            },
+                            "aggs": [
+                                {
+                                    "id": "1",
+                                    "enabled": true,
+                                    "type": "count",
+                                    "schema": "metric",
+                                    "params": {}
+                                },
+                                {
+                                    "id": "2",
+                                    "enabled": true,
+                                    "type": "date_histogram",
+                                    "schema": "segment",
+                                    "params": {
+                                        "field": "@timestamp",
+                                        "interval": "auto",
+                                        "min_doc_count": 1
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "timeRestore": false,
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": {
+                        "query": {
+                            "query": "",
+                            "language": "kuery"
+                        },
+                        "filter": []
+                    }
+                }
+            }
+        }
+    ]
+}
